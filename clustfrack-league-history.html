@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Clustfrack League History — 2022–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f2ec; --surface:#fffdf8; --surface2:#ece8dc; --ink:#1c2419; --muted:#5c6656;
+    --line:#d8d2c0; --field:#1e5c38; --field-dark:#143d25; --gold:#b8860b; --gold-bg:#f7ecd0;
+    --red:#a33327; --red-bg:#f6e3df; --accent:#1e5c38; --chip:#e6e1d0; --bar:#2e7d4f;
+    --shadow:0 1px 3px rgba(28,36,25,.12);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12160f; --surface:#1b2016; --surface2:#242a1e; --ink:#ece9dc; --muted:#a8ae9c;
+      --line:#39402f; --field:#2e7d4f; --field-dark:#0e2417; --gold:#e0aa2e; --gold-bg:#3a3013;
+      --red:#e07a6a; --red-bg:#3d211c; --accent:#7cc79b; --chip:#2c3324; --bar:#4caf7d;
+      --shadow:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Barlow",system-ui,sans-serif;font-size:16px;line-height:1.45}
+  button,select,input{min-height:2.25rem;font:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 56px}
+  /* Hero */
+  .hero{background:linear-gradient(160deg,var(--field-dark),var(--field));color:#f5f1e2;margin:0 -16px;padding:26px 16px 20px;border-bottom:4px solid var(--gold)}
+  @media(min-width:1120px){.hero{margin:0;border-radius:0 0 14px 14px}}
+  .hero h1{font-family:"Barlow Condensed",sans-serif;font-size:clamp(2rem,6vw,3.2rem);line-height:.95;margin:0;text-transform:uppercase;letter-spacing:.5px}
+  .hero h1 span{color:#f2c94c}
+  .hero p{margin:8px 0 0;max-width:640px;color:#dfe8d2;font-size:.98rem}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .hstat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:8px 14px;min-width:104px}
+  .hstat b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.5rem;line-height:1}
+  .hstat small{color:#cfe0bd;text-transform:uppercase;letter-spacing:.6px;font-size:.68rem;font-weight:600}
+  /* League overview */
+  .league-overview{margin:22px 0 8px}
+  .league-overview h2{margin-top:0}
+  .overview-lead{color:var(--muted);max-width:820px;margin:0 0 6px}
+  .overview-lead strong{color:var(--ink)}
+  .fact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:10px;margin:16px 0 12px}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;box-shadow:var(--shadow)}
+  .fact small{display:block;font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.6px;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:4px}
+  .fact b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.35rem;line-height:1.05;text-transform:uppercase;letter-spacing:.3px}
+  .fact p{margin:5px 0 0;font-size:.9rem;color:var(--muted);line-height:1.4}
+  .fact p strong{color:var(--ink)}
+  .overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin-top:12px}
+  .overview-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+  .overview-card h3{margin:0 0 8px;font-size:1.2rem}
+  .overview-card p{margin:0 0 8px;font-size:.95rem;color:var(--ink)}
+  .overview-card p:last-child{margin-bottom:0}
+  .overview-card .muted{font-size:.92rem}
+  .overview-card ul{margin:6px 0 0;padding-left:18px}
+  .overview-card li{margin:5px 0;font-size:.95rem}
+  .overview-card li::marker{color:var(--bar)}
+  .div-names{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .div-names span{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:700;font-size:.9rem}
+  .crossover{background:var(--gold-bg);border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.92rem}
+  .crossover b{color:var(--gold)}
+  /* Tabs */
+  .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
+  .tabbar button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;font-weight:600;cursor:pointer;min-height:2.5rem}
+  .tabbar button[aria-selected="true"]{background:var(--field);border-color:var(--field);color:#fff}
+  @media (prefers-color-scheme: dark){.tabbar button[aria-selected="true"]{background:var(--bar);border-color:var(--bar);color:#0e2417}}
+  section.view{display:none}
+  section.view.active{display:block}
+  h2{font-family:"Barlow Condensed",sans-serif;font-size:1.7rem;text-transform:uppercase;letter-spacing:.4px;margin:22px 0 6px}
+  h3{font-family:"Barlow Condensed",sans-serif;font-size:1.25rem;text-transform:uppercase;letter-spacing:.4px;margin:20px 0 8px}
+  .sub{color:var(--muted);margin:0 0 14px;max-width:760px}
+  /* Tables */
+  .tablewrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+  table{border-collapse:collapse;width:100%;font-size:.94rem}
+  th,td{padding:9px 10px;text-align:left;vertical-align:top}
+  th{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;font-size:.78rem;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--line);background:var(--surface2)}
+  td{border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.team{font-weight:600}
+  .owner{color:var(--muted);font-weight:400;font-size:.86rem;display:block}
+  .pos{color:var(--bar);font-weight:700}.neg{color:var(--red);font-weight:700}
+  button.sortable{background:none;border:none;padding:0;color:inherit;font:inherit;cursor:pointer;text-transform:inherit;letter-spacing:inherit;min-height:0}
+  button.sortable::after{content:" ⇅";opacity:.45}
+  @media(max-width:760px){
+    .tablewrap{overflow:visible;background:none;border:none;box-shadow:none}
+    table,thead,tbody,tr,td,th{display:block;width:100%}
+    thead{display:none}
+    tr{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:6px 4px;box-shadow:var(--shadow)}
+    td{border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:14px;text-align:right}
+    td:last-child{border-bottom:none}
+    td::before{content:attr(data-l);font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;font-size:.74rem;letter-spacing:.5px;color:var(--muted);text-align:left;padding-top:2px}
+    td.team{display:block;text-align:left;font-size:1.05rem}
+    td.team::before{display:none}
+    td.num{text-align:right}
+  }
+  /* Cards & honours */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .card h4{margin:0 0 2px;font-family:"Barlow Condensed",sans-serif;font-size:1.15rem;text-transform:uppercase;letter-spacing:.4px}
+  .card .trophy{font-size:.8rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.6px}
+  .card ul{margin:8px 0 0;padding:0;list-style:none}
+  .card li{padding:5px 0;border-top:1px dashed var(--line);display:flex;justify-content:space-between;gap:10px}
+  .card li:first-child{border-top:none}
+  .yr{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 9px;font-size:.78rem;font-weight:700;margin-left:6px;vertical-align:1px}
+  .pill.gold{background:var(--gold-bg);color:var(--gold)}
+  .pill.rudy{background:var(--red-bg);color:var(--red)}
+  /* Team picker */
+  .picker{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
+  .picker button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 12px;font-weight:600;cursor:pointer;font-size:.92rem}
+  .picker button[aria-selected="true"]{background:var(--gold-bg);border-color:var(--gold);color:var(--ink)}
+  .teamhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  .teamhead h2{margin:0}
+  .probbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);margin:14px 0}
+  .probrow{display:flex;align-items:center;gap:12px;margin:8px 0}
+  .probrow .lbl{width:170px;flex:none;font-size:.9rem;font-weight:600}
+  .track{flex:1;background:var(--surface2);border-radius:999px;height:16px;overflow:hidden;min-width:80px}
+  .fill{height:100%;background:var(--bar);border-radius:999px}
+  .fill.base{background:var(--muted)}
+  .probrow .val{width:64px;flex:none;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+  .honourcounts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .hc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 13px;box-shadow:var(--shadow)}
+  .hc b{font-family:"Barlow Condensed",sans-serif;font-size:1.35rem;margin-right:6px}
+  .hc span{font-size:.85rem;color:var(--muted);font-weight:600}
+  .note{background:var(--gold-bg);border:1px solid var(--gold);border-radius:12px;padding:12px 16px;margin:14px 0;font-size:.94rem}
+  .note b{color:var(--gold)}
+  @media (prefers-color-scheme: dark){.note b{color:var(--gold)}}
+  .muted{color:var(--muted)}
+  .finals{list-style:none;margin:0;padding:0}
+  .finals li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+  .finals .fy{font-family:"Barlow Condensed",sans-serif;font-size:1.3rem;font-weight:700}
+  .finals .win{font-weight:700}
+  .finals .vs{color:var(--muted)}
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:.88rem}
+  .seasonblock{margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Clustfrack <span>League History</span></h1>
+    <p>Five seasons, 2022–2026 — four completed seasons (2022–2025, the years on NFL.com before the move to ESPN as Clusterfrack II) plus the 2026 season in progress, folded into every franchise's record below. 2026 is final through Week 10 and updates weekly — refreshed every Tuesday when the week's numbers go final. Every record, points total, honour and title race is built from the season standings: 10 teams, 14-game regular seasons, 8 playoff teams a year.</p>
+    <div class="hero-stats">
+      <div class="hstat"><b>5</b><small>Seasons · 2026 in progress</small></div>
+      <div class="hstat"><b>10</b><small>Franchises</small></div>
+      <div class="hstat"><b>66</b><small>Games per team max</small></div>
+      <div class="hstat"><b>3</b><small>Different champions</small></div>
+      <div class="hstat"><b style="font-size:1.05rem;line-height:1.15;padding-top:4px">Happy Gilmore</b><small>Division 1</small></div>
+      <div class="hstat"><b style="font-size:1.05rem;line-height:1.15;padding-top:4px">Shooter McGavin</b><small>Division 2</small></div>
+    </div>
+  </div>
+
+  <!-- LEAGUE OVERVIEW -->
+  <section class="league-overview" aria-label="League overview">
+    <h2>League overview</h2>
+    <p class="overview-lead">Welcome to the home of <strong>Clusterfrack 2</strong> — the league's public record for members and anyone else who wants to follow along. Everything about how the league runs, who plays in it, and what its history holds is on this page: the format and rules up top, then all-time records, honours, season-by-season standings, and a full tab for every franchise below.</p>
+
+    <div class="fact-grid">
+      <div class="fact">
+        <small>League name</small>
+        <b>Clusterfrack 2</b>
+        <p>Shown on ESPN as <strong>Clusterfrack II</strong>.</p>
+      </div>
+      <div class="fact">
+        <small>Commissioner</small>
+        <b>Sean Tomlin</b>
+        <p>Team: <strong>Monte Lake Colts</strong>.</p>
+      </div>
+      <div class="fact">
+        <small>Teams</small>
+        <b>10 teams</b>
+        <p>Two divisions, one league.</p>
+      </div>
+      <div class="fact">
+        <small>Scoring</small>
+        <b>PPR</b>
+        <p>Points per reception. <strong>No kickers.</strong></p>
+      </div>
+      <div class="fact">
+        <small>Founded</small>
+        <b>2022</b>
+        <p>Played <strong>2022–2025 on NFL.com</strong>, moved to <strong>ESPN for 2026</strong>.</p>
+      </div>
+      <div class="fact">
+        <small>Trade deadline</small>
+        <b>December 2</b>
+        <p>Every year.</p>
+      </div>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h3>Divisions</h3>
+        <p>The league is split into two divisions:</p>
+        <div class="div-names"><span>Happy Gilmore</span><span>Shooter McGavin</span></div>
+        <p class="muted">Division standing matters — it's how the playoff field is set, and division titles are part of every franchise's record in the tabs below.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Playoffs</h3>
+        <p><strong>Top 4 in each division make the playoffs</strong> — 8 of the league's 10 teams qualify for the championship bracket.</p>
+        <div class="crossover"><b>2026 only — crossover rule:</b> a 5th-place team with a better record than the other division's 4th-place team takes that spot.</div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Playoff tiebreaker</h3>
+        <p>When teams are tied, seeding is decided in this order:</p>
+        <ul>
+          <li><strong>1. Points for</strong> — most points scored comes first</li>
+          <li><strong>2. Head-to-head record</strong> — result between the tied teams</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>League honours</h3>
+        <p>Three honours are on the line every season:</p>
+        <ul>
+          <li><strong>The Drew McLean Trophy</strong> — league champion</li>
+          <li><strong>The Payton</strong> — regular season winner</li>
+          <li><strong>The Rudy</strong> — Toilet Bowl, last place</li>
+        </ul>
+        <p class="muted">Every past winner is listed on the Honours Board below.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabbar" role="tablist" aria-label="Dashboard sections">
+    <button role="tab" aria-selected="true" data-view="overview">All-Time Records</button>
+    <button role="tab" aria-selected="false" data-view="honours">Honours Board</button>
+    <button role="tab" aria-selected="false" data-view="seasons">Season by Season</button>
+    <button role="tab" aria-selected="false" data-view="teams">Team Tabs</button>
+    <button role="tab" aria-selected="false" data-view="finals">Title Games &amp; Playoffs</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="view active" id="view-overview">
+    <h2>All-time regular-season records</h2>
+    <p class="sub">Combined 2022–2026 regular seasons, grouped by franchise — so a team that changed its name (or its name changed under the same owner) keeps one combined record. The 2026 season is in progress (final through Week 10, 10 games played) and is counted into every total below; it updates weekly. Win % counts a tie as half a win. Tap a column heading to sort. Playoff columns count the 8-team championship bracket each year — 2026 playoff columns stay blank until the playoffs happen.</p>
+    <div class="tablewrap">
+      <table id="alltime">
+        <thead><tr>
+          <th><button class="sortable" data-k="name">Franchise</button></th>
+          <th class="num"><button class="sortable" data-k="seasons">Seasons</button></th>
+          <th class="num"><button class="sortable" data-k="rec">W–L–T</button></th>
+          <th class="num"><button class="sortable" data-k="pct">Win %</button></th>
+          <th class="num"><button class="sortable" data-k="pf">Pts For</button></th>
+          <th class="num"><button class="sortable" data-k="pa">Pts Agst</button></th>
+          <th class="num"><button class="sortable" data-k="diff">Diff</button></th>
+          <th class="num"><button class="sortable" data-k="apps">Playoffs</button></th>
+          <th class="num"><button class="sortable" data-k="finals">Finals</button></th>
+          <th class="num"><button class="sortable" data-k="titles">Titles</button></th>
+          <th class="num"><button class="sortable" data-k="prob">Title prob.*</button></th>
+        </tr></thead>
+        <tbody id="alltime-body"></tbody>
+      </table>
+    </div>
+    <p class="sub" style="margin-top:10px">* Title probability if they make the playoffs = league titles ÷ playoff appearances, from their own history. The league-wide base rate is <strong>12.5%</strong> — 4 titles across 32 playoff spots (8 teams × 4 seasons). Full explanation on each team's tab.</p>
+
+    <h3>Points leaderboards — regular season, 2022–2026</h3>
+    <div class="grid">
+      <div class="card"><h4>Most points for</h4><ul id="lb-pf"></ul></div>
+      <div class="card"><h4>Fewest points against</h4><ul id="lb-pa"></ul></div>
+      <div class="card"><h4>Best single season — points for</h4><ul id="lb-season-pf"></ul></div>
+      <div class="card"><h4>Best single-season record</h4><ul id="lb-season-rec"></ul></div>
+    </div>
+    <p class="sub" style="margin-top:8px">Overall points leaderboards include 2026 in progress; the two single-season boards count completed seasons only (2022–2025), so a partial 2026 doesn't outrank a full 14-game season.</p>
+
+    <div class="note"><b>What isn't in here, and why:</b> ESPN's migration carried over season standings, records, points for/against, divisions, playoff seeds and final finishes — but <b>not</b> weekly matchups or playoff game scores, and the old fantasy.nfl.com site is shut down. So game-by-game head-to-head records and playoff points totals can't be rebuilt without the original NFL league ID, which the league doesn't have saved. Everything that <i>can</i> be known — including every title game pairing — is in this dashboard. Playoff win–loss game records are not shown because they'd have to be guessed.</div>
+  </section>
+
+  <!-- HONOURS -->
+  <section class="view" id="view-honours">
+    <h2>Honours board — who's won what</h2>
+    <p class="sub">All five honours, year by year, with all-time counts — 2022–2025 are final; <strong>2026 honours are pending</strong> until that season ends. Division champions are the two semifinal winners who reached the title game — the championship-bracket finalists. Regular-season division winners and the Payton are decided on record, with total points for breaking ties (2022 Division 1 — Happy Gilmore, 2023, 2024 and 2025 Division 2 — Shooter McGavin all needed it or were checked against it). Division 1 is <strong>Happy Gilmore</strong> and Division 2 is <strong>Shooter McGavin</strong>.</p>
+    <div class="grid" id="honours-grid"></div>
+    <h3>Honours count — all time</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Franchise</th><th class="num">Drew McLean 🏆</th><th class="num">Div. Champion</th><th class="num">Semifinalist</th><th class="num">The Payton</th><th class="num">Div. Title (reg.)</th><th class="num">The Rudy 🚽</th></tr></thead>
+        <tbody id="honours-counts"></tbody>
+      </table>
+    </div>
+    <p class="sub" style="margin-top:10px">Semifinalist = finished in the championship bracket's top four (won their quarterfinal). Division Champion = won that semifinal and played in the title game.</p>
+  </section>
+
+  <!-- SEASONS -->
+  <section class="view" id="view-seasons">
+    <h2>Season by season</h2>
+    <p class="sub">Final standings in finishing order (1 = champion, 10 = last place) for 2022–2025. The record, PF and PA are the 14-game regular season. Seed is the playoff seed; “—” means they missed the 8-team playoffs. Division 1 is <strong>Happy Gilmore</strong> and Division 2 is <strong>Shooter McGavin</strong>. The 2022–2025 playoffs used straight seeding — the crossover rule only exists from 2026 and is not applied to any of these years. <strong>2026 — in progress</strong> is listed first, final through Week 10 (10 games), in current overall order with each team's division standing shown; its finish and seed stay TBD until the season ends, and it updates weekly.</p>
+    <div id="seasons-wrap"></div>
+  </section>
+
+  <!-- TEAMS -->
+  <section class="view" id="view-teams">
+    <h2>Team tabs</h2>
+    <p class="sub">Pick a franchise. Each tab folds every team name that owner/franchise used into one history — name changes and ownership changes are listed as side notes with the years, and each tab now includes a <strong>2026 — in progress</strong> row (final through Week 10) counted into that person's totals; it updates weekly. Owners confirmed by Sean on November 23, 2026 include Leslie Rowe's team names, Dan Groess (Pass the Dutch), Bianca Liberatore — one combined franchise covering Achane In The Membrane plus the former Lawson teams Jalen Squirts and AndyReedAnalBead, all counted as a single team — Alex Donald as the current owner of the former Kaden franchise (Starkillers, Golf is Better, RileyReadmeabook, now That's What Shaheed Said), and the Steve team (2022) — Steve's that year and now Leslie Rowe's — so its season is folded into Leslie's tab. Every team-season is now attributed; no owner is left unconfirmed.</p>
+    <div class="picker" id="team-picker" role="tablist" aria-label="Choose a team"></div>
+    <div id="team-detail"></div>
+  </section>
+
+  <!-- FINALS -->
+  <section class="view" id="view-finals">
+    <h2>Title games &amp; playoff picture</h2>
+    <p class="sub">Every championship game pairing is known from the migrated final standings, even though the game scores weren't migrated. The two finalists each year are that season's division champions (semifinal winners). Semifinalists are the bracket's top four finishers.</p>
+    <ul class="finals" id="finals-list"></ul>
+    <h3>Playoff appearances by seed</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Season</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead>
+        <tbody id="seeds-body"></tbody>
+      </table>
+    </div>
+    <h3>Championship probability — how it works</h3>
+    <p class="sub" style="max-width:820px">Each franchise's number is simply <strong>titles ÷ playoff appearances</strong> — how often they've converted a playoff trip into the Drew McLean Trophy. Across the league, 32 playoff trips produced 4 champions, a <strong>12.5%</strong> base rate (exactly what you'd expect with 8 teams in the bracket). Graeme's 50% (2 titles in 4 trips) is four times the base rate; Tye and Dan (Pass the Dutch) sit at 33.3% (1 in 3). Everyone else is still looking for their first conversion — Nathan has reached two finals without winning one, the league's hard-luck line.</p>
+  </section>
+
+  <footer>
+    <p>Source: ESPN migrated league history for Clusterfrack II (the 2022–2025 NFL.com seasons), pulled November 23, 2026 — final standings, records, points for/against, divisions, playoff seeds and finishes — plus the live 2026 ESPN season, final through Week 10 as of November 23, 2026, folded into each franchise's record and set to update weekly (every Tuesday when scores go final). 2026 playoff seeds, finishes and honours are pending until the season ends. Weekly scores, playoff game scores and game-by-game head-to-head were not migrated by ESPN and the old NFL.com platform is closed, so they are not shown rather than estimated. Owners are shown where ESPN links the team to a named member or where Sean confirmed them on November 23, 2026 (Leslie Rowe, Dan Groess, Bianca Liberatore; Kaden as the former owner of the Starkillers / Golf is Better / RileyReadmeabook franchise, now Alex Donald's; Lawson as the former owner of Jalen Squirts and AndyReedAnalBead — that franchise and Bianca's own Achane In The Membrane are combined as one team under Bianca; and the Steve team of 2022, Steve's that year and now Leslie Rowe's). Every team-season in 2022–2026 is attributed to an owner.</p>
+  </footer>
+</div>
+
+<script>
+/* ============ DATA — ESPN migrated history 2022–2025 + 2026 in progress (through Week 10) ============ */
+/* rec = regular-season W-L-T over 14 games; pf/pa = regular season totals */
+var SEASONS = {
+ 2022:{ rows:[
+  {team:"G-Spot",fr:"graeme",w:7,l:7,t:0,pf:1984.40,pa:1834.40,div:1,seed:6,fin:1},
+  {team:"The mighty 4 eyed fat kids",fr:"nathan",w:8,l:6,t:0,pf:1944.15,pa:1835.65,div:1,seed:3,fin:2},
+  {team:"The replacement",fr:"leslie",w:7,l:7,t:0,pf:1893.95,pa:1981.50,div:1,seed:7,fin:3},
+  {team:"GB_Packers",fr:"shane",w:11,l:3,t:0,pf:2044.80,pa:1908.95,div:2,seed:1,fin:4},
+  {team:"Protect your holes",fr:"tye",w:8,l:6,t:0,pf:2175.00,pa:1891.90,div:1,seed:4,fin:5},
+  {team:"Steve",fr:"leslie",w:6,l:8,t:0,pf:1787.45,pa:2013.05,div:1,seed:8,fin:6},
+  {team:"Watsons Massages",fr:"simon",w:7,l:7,t:0,pf:1877.85,pa:1908.10,div:2,seed:5,fin:7},
+  {team:"Starkillers",fr:"kaden",w:8,l:6,t:0,pf:1898.40,pa:1924.75,div:2,seed:2,fin:8},
+  {team:"Monte lake colts",fr:"sean",w:5,l:9,t:0,pf:1934.35,pa:1973.95,div:2,seed:null,fin:9},
+  {team:"Pass the Dutch",fr:"dan",w:3,l:11,t:0,pf:1717.55,pa:1985.65,div:2,seed:null,fin:10}
+ ]},
+ 2023:{ rows:[
+  {team:"Protect your holes",fr:"tye",w:7,l:7,t:0,pf:1852.00,pa:2092.95,div:1,seed:4,fin:1},
+  {team:"Monte lake colts",fr:"sean",w:9,l:5,t:0,pf:2102.40,pa:2028.90,div:2,seed:3,fin:2},
+  {team:"Starkillers",fr:"kaden",w:6,l:8,t:0,pf:1809.40,pa:1866.90,div:2,seed:7,fin:3},
+  {team:"Pass the Dutch",fr:"dan",w:6,l:8,t:0,pf:2053.55,pa:2009.35,div:2,seed:8,fin:4},
+  {team:"G-Spot -THE CHAMP-",fr:"graeme",w:7,l:7,t:0,pf:2210.00,pa:2044.75,div:1,seed:5,fin:5},
+  {team:"The Mark Davis Bowl Cut",fr:"simon",w:10,l:4,t:0,pf:1945.40,pa:1926.75,div:2,seed:2,fin:6},
+  {team:"The Dirty Philly CheeseSteak",fr:"leslie",w:6,l:8,t:0,pf:1919.75,pa:1845.95,div:1,seed:6,fin:7},
+  {team:"Jalen Squirts",fr:"bianca",w:10,l:4,t:0,pf:2112.60,pa:1846.80,div:1,seed:1,fin:8},
+  {team:"GB_Packers",fr:"shane",w:6,l:8,t:0,pf:2038.60,pa:2014.75,div:2,seed:null,fin:9},
+  {team:"big papa",fr:"nathan",w:3,l:11,t:0,pf:1804.20,pa:2170.80,div:1,seed:null,fin:10}
+ ]},
+ 2024:{ rows:[
+  {team:"Pass the Dutch",fr:"dan",w:7,l:7,t:0,pf:1935.15,pa:2066.35,div:1,seed:5,fin:1},
+  {team:"Billy bob jr",fr:"nathan",w:10,l:4,t:0,pf:1928.85,pa:1897.90,div:2,seed:1,fin:2},
+  {team:"G-Spot",fr:"graeme",w:8,l:6,t:0,pf:2081.90,pa:1886.45,div:1,seed:3,fin:3},
+  {team:"AndyReedAnalBead",fr:"bianca",w:6,l:8,t:0,pf:2139.30,pa:2015.80,div:2,seed:7,fin:4},
+  {team:"GB_Packers",fr:"shane",w:7,l:7,t:0,pf:1972.95,pa:2034.75,div:1,seed:4,fin:5},
+  {team:"Tropic Thunder",fr:"leslie",w:7,l:7,t:0,pf:1883.90,pa:1885.20,div:2,seed:6,fin:6},
+  {team:"Monte lake colts",fr:"sean",w:5,l:9,t:0,pf:1813.35,pa:1907.75,div:2,seed:null,fin:7},
+  {team:"Golf is Better",fr:"kaden",w:10,l:4,t:0,pf:1816.50,pa:1662.25,div:1,seed:2,fin:8},
+  {team:"The Mark Davis Bowl Cut",fr:"simon",w:6,l:8,t:0,pf:1910.40,pa:1930.60,div:1,seed:8,fin:9},
+  {team:"Protect your holes",fr:"tye",w:4,l:10,t:0,pf:1849.75,pa:2045.00,div:2,seed:null,fin:10}
+ ]},
+ 2025:{ rows:[
+  {team:"CeeDeez Nuuutz",fr:"graeme",w:8,l:5,t:1,pf:2120.65,pa:1936.45,div:1,seed:3,fin:1},
+  {team:"Protect your holes",fr:"tye",w:8,l:6,t:0,pf:2007.20,pa:1906.70,div:2,seed:5,fin:2},
+  {team:"Pass the Dutch",fr:"dan",w:9,l:4,t:1,pf:2208.35,pa:1829.40,div:1,seed:1,fin:3},
+  {team:"Chase Ventura",fr:"leslie",w:8,l:6,t:0,pf:2064.45,pa:1875.25,div:2,seed:4,fin:4},
+  {team:"The Mark Davis Bowl Cut",fr:"simon",w:9,l:5,t:0,pf:2001.55,pa:1910.20,div:1,seed:2,fin:5},
+  {team:"Achane In The Membrane",fr:"bianca",w:4,l:10,t:0,pf:1907.40,pa:2099.55,div:2,seed:null,fin:6},
+  {team:"GB_Packers",fr:"shane",w:7,l:7,t:0,pf:2076.30,pa:2026.95,div:1,seed:6,fin:7},
+  {team:"Monte Lake Colts",fr:"sean",w:7,l:7,t:0,pf:1996.75,pa:2173.95,div:2,seed:7,fin:8},
+  {team:"RileyReadmeabook",fr:"kaden",w:5,l:9,t:0,pf:1831.85,pa:2048.05,div:1,seed:8,fin:9},
+  {team:"Don't Be A Kyren",fr:"nathan",w:4,l:10,t:0,pf:1734.90,pa:2142.90,div:2,seed:null,fin:10}
+ ]},
+ 2026:{ inProgress:true, through:"Week 10", rows:[
+  {team:"The Mark Davis Bowl Cut",fr:"simon",w:8,l:2,t:0,pf:1911.10,pa:1469.50,div:1,seed:null,fin:null,divRank:1},
+  {team:"That's What Shaheed Said",fr:"kaden",w:8,l:2,t:0,pf:1705.90,pa:1504.30,div:1,seed:null,fin:null,divRank:2},
+  {team:"Sun god spanking",fr:"tye",w:7,l:3,t:0,pf:1768.50,pa:1662.00,div:2,seed:null,fin:null,divRank:1},
+  {team:"CeeDeez Nuuutz",fr:"graeme",w:6,l:4,t:0,pf:1829.80,pa:1692.90,div:1,seed:null,fin:null,divRank:3},
+  {team:"GB_Packers",fr:"shane",w:6,l:4,t:0,pf:1607.10,pa:1507.80,div:1,seed:null,fin:null,divRank:4},
+  {team:"Pass the Dutch",fr:"dan",w:4,l:6,t:0,pf:1710.90,pa:1850.10,div:1,seed:null,fin:null,divRank:5},
+  {team:"Todd Hill Crew",fr:"leslie",w:3,l:7,t:0,pf:1569.00,pa:1795.50,div:2,seed:null,fin:null,divRank:2},
+  {team:"Achane In The Membrane",fr:"bianca",w:3,l:7,t:0,pf:1489.30,pa:1642.10,div:2,seed:null,fin:null,divRank:3},
+  {team:"Monte Lake Colts",fr:"sean",w:3,l:7,t:0,pf:1403.10,pa:1684.20,div:2,seed:null,fin:null,divRank:4},
+  {team:"Big Bear",fr:"nathan",w:2,l:8,t:0,pf:1385.90,pa:1572.20,div:2,seed:null,fin:null,divRank:5}
+ ]}
+};
+var FR = {
+ graeme:{label:"Graeme Hardaker",current:"CeeDeez Nuuutz",note:"Same owner all five seasons. Ran as <b>G-Spot</b> in 2022, 2023 (styled “G-Spot -THE CHAMP-” that year) and 2024, then renamed to <b>CeeDeez Nuuutz</b> for 2025 and 2026 — the name changed, the owner never did. 2026 — in progress through Week 10: 6–4 in Happy Gilmore."},
+ tye:{label:"Tye Brandt",current:"Sun god spanking",note:"Same owner all five seasons. Ran as <b>Protect your holes</b> in 2022–2025 — champion in 2023, last place in 2024, runner-up in 2025 — then renamed to <b>Sun god spanking</b> for 2026. 2026 — in progress through Week 10: 7–3, 1st in Shooter McGavin."},
+ dan:{label:"Dan Groess",current:"Pass the Dutch",note:"Same owner and same team name, <b>Pass the Dutch</b>, all five seasons \u2014 confirmed by Sean. The arc is remarkable: last place and the Rudy in 2022, Drew McLean Trophy champion in 2024, then the #1 seed and the Payton in 2025. 2026 — in progress through Week 10: 4–6 in Happy Gilmore."},
+ nathan:{label:"Nathan Pollitt",current:"Big Bear",note:"Same owner, a brand-new name every year: <b>The mighty 4 eyed fat kids</b> (2022), <b>big papa</b> (2023), <b>Billy bob jr</b> (2024), <b>Don't Be A Kyren</b> (2025), <b>Big Bear</b> (2026). All five seasons are folded into this one tab. 2026 — in progress through Week 10: 2–8 in Shooter McGavin."},
+ shane:{label:"Shane Goertzen",current:"GB_Packers",note:"Same owner and same name, <b>GB_Packers</b>, all five seasons. 2026 — in progress through Week 10: 6–4 in Happy Gilmore."},
+ sean:{label:"Sean Tomlin",current:"Monte Lake Colts",note:"Same owner and team all five seasons — <b>Monte lake colts</b> (capitalised as Monte Lake Colts in 2025–2026). Commissioner Sean's franchise. 2026 — in progress through Week 10: 3–7 in Shooter McGavin."},
+ simon:{label:"Simon Pettifer",current:"The Mark Davis Bowl Cut",note:"Same owner all five seasons. Debuted as <b>Watsons Massages</b> in 2022, then became <b>The Mark Davis Bowl Cut</b> from 2023 onward. 2026 — in progress through Week 10: 8–2, 1st in Happy Gilmore, with the league's highest points for so far."},
+ kaden:{label:"Alex Donald (formerly Kaden)",current:"That's What Shaheed Said",note:"<b>Ownership side note:</b> this franchise was owned by <b>Rudy</b> before <b>Kaden</b> took over \u2014 Kaden then ran it for all four historical seasons \u2014 <b>Starkillers</b> in 2022 and 2023, <b>Golf is Better</b> in 2024, and <b>RileyReadmeabook</b> in 2025 \u2014 and it is <b>now Alex Donald\u2019s</b> franchise, playing as <b>That's What Shaheed Said</b> in 2026. Kaden\u2019s records are folded in here under the current owner, Alex, with Kaden credited for 2022\u20132025, and Rudy credited as the owner before Kaden. Highlights from the Kaden years: a semifinal run in 2023, and a 10\u20134 division title with the league\u2019s stingiest defence in 2024. 2026 — in progress through Week 10: 8–2, 2nd in Happy Gilmore."},
+ leslie:{label:"Leslie Rowe",current:"Todd Hill Crew",note:"Same owner, a new name every year \u2014 all confirmed by Sean and folded into this one tab: <b>The replacement</b> (2022, 3rd place), <b>The Dirty Philly CheeseSteak</b> (2023), <b>Tropic Thunder</b> (2024), <b>Chase Ventura</b> (2025 \u2014 a division title and a semifinal run), and <b>Todd Hill Crew</b> (2026). <b>Ownership side note:</b> the team that played as <b>Steve</b> in 2022 also belongs to this franchise\u2019s history \u2014 it was <b>Steve\u2019s</b> in 2022 and is now <b>Leslie Rowe\u2019s</b>, so Steve\u2019s 2022 season (6\u20138, in the playoffs as the 8 seed, finished 6th) is folded into this tab. Leslie Rowe is Sean\u2019s co-host on The Tomlin and Rowe Show. 2026 — in progress through Week 10: 3–7 in Shooter McGavin."},
+ bianca:{label:"Bianca Liberatore",current:"Achane In The Membrane",note:"One franchise, three team names, all folded into this single tab as one team: <b>Jalen Squirts</b> (2023), <b>AndyReedAnalBead</b> (2024) and <b>Achane In The Membrane</b> (2025–2026). <b>Ownership side note:</b> the 2023\u20132024 seasons were run by <b>Lawson</b> before the franchise became <b>Bianca Liberatore\u2019s</b> \u2014 Lawson is credited for those two seasons, and Bianca\u2019s own Achane In The Membrane seasons (2025, 4\u201310, missed the playoffs; 2026 in progress) are part of the same combined record. The two Lawson seasons were both strong: Jalen Squirts took the #1 seed, the Payton and a division title in 2023, and AndyReedAnalBead reached the semifinals in 2024. 2026 — in progress through Week 10: 3–7 in Shooter McGavin."},
+};
+/* Honours by year — division winners decided on record, PF breaks ties */
+var HONOURS = {
+ titles:[["2022","G-Spot","graeme"],["2023","Protect your holes","tye"],["2024","Pass the Dutch","dan"],["2025","CeeDeez Nuuutz","graeme"]],
+ rudy:[["2022","Pass the Dutch","dan"],["2023","big papa","nathan"],["2024","Protect your holes","tye"],["2025","Don't Be A Kyren","nathan"]],
+ payton:[["2022","GB_Packers — 11–3","shane"],["2023","Jalen Squirts — 10–4, won tie on points","bianca"],["2024","Billy bob jr — 10–4, won tie on points","nathan"],["2025","Pass the Dutch — 9–4–1","dan"]],
+ divreg:[["2022","Happy Gilmore (Div 1): Protect your holes · Shooter McGavin (Div 2): GB_Packers",null],["2023","Happy Gilmore (Div 1): Jalen Squirts · Shooter McGavin (Div 2): The Mark Davis Bowl Cut",null],["2024","Happy Gilmore (Div 1): Golf is Better · Shooter McGavin (Div 2): Billy bob jr",null],["2025","Happy Gilmore (Div 1): Pass the Dutch · Shooter McGavin (Div 2): Chase Ventura (won tie on points)",null]],
+ divchamp:[["2022","G-Spot & The mighty 4 eyed fat kids",null],["2023","Protect your holes & Monte lake colts",null],["2024","Pass the Dutch & Billy bob jr",null],["2025","CeeDeez Nuuutz & Protect your holes",null]]
+};
+var FINALS = [
+ {yr:2022,win:"G-Spot",winFr:"graeme",ru:"The mighty 4 eyed fat kids",ruFr:"nathan",third:"The replacement",fourth:"GB_Packers",semi:"G-Spot, The mighty 4 eyed fat kids, The replacement, GB_Packers"},
+ {yr:2023,win:"Protect your holes",winFr:"tye",ru:"Monte lake colts",ruFr:"sean",third:"Starkillers",fourth:"Pass the Dutch",semi:"Protect your holes, Monte lake colts, Starkillers, Pass the Dutch"},
+ {yr:2024,win:"Pass the Dutch",winFr:"dan",ru:"Billy bob jr",ruFr:"nathan",third:"G-Spot",fourth:"AndyReedAnalBead",semi:"Pass the Dutch, Billy bob jr, G-Spot, AndyReedAnalBead"},
+ {yr:2025,win:"CeeDeez Nuuutz",winFr:"graeme",ru:"Protect your holes",ruFr:"tye",third:"Pass the Dutch",fourth:"Chase Ventura",semi:"CeeDeez Nuuutz, Protect your holes, Pass the Dutch, Chase Ventura"}
+];
+
+/* ============ DERIVE ============ */
+var DIVNAMES={1:"Happy Gilmore",2:"Shooter McGavin"};
+function divLabel(d){return "Division "+d+" — "+(DIVNAMES[d]||"");}
+function fmt(n){return n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function pctOf(w,l,t){var g=w+l+t;return g?((w+0.5*t)/g):0;}
+function agg(fr){
+  var a={w:0,l:0,t:0,pf:0,pa:0,seasons:0,apps:0,finals:0,titles:0,top4:0,best:99,rows:[]};
+  Object.keys(SEASONS).forEach(function(yr){
+    SEASONS[yr].rows.forEach(function(r){
+      if(r.fr!==fr)return;
+      a.w+=r.w;a.l+=r.l;a.t+=r.t;a.pf+=r.pf;a.pa+=r.pa;a.seasons++;
+      if(r.seed)a.apps++;
+      if(r.fin){ if(r.fin<=2)a.finals++; if(r.fin===1)a.titles++; if(r.fin<=4)a.top4++; if(r.fin<a.best)a.best=r.fin; }
+      a.rows.push({yr:+yr,r:r});
+    });
+  });
+  a.pct=pctOf(a.w,a.l,a.t);
+  a.prob=a.apps?(a.titles/a.apps*100):null;
+  return a;
+}
+var FRKEYS=Object.keys(FR);
+
+/* ============ OVERVIEW TABLE ============ */
+var sortKey="pct",sortDir=-1;
+function renderAllTime(){
+  var list=FRKEYS.map(function(k){var a=agg(k);return {k:k,name:FR[k].label,a:a,
+    seasons:a.seasons,rec:a.w*10000-a.l,pct:a.pct,pf:a.pf,pa:a.pa,diff:a.pf-a.pa,apps:a.apps,finals:a.finals,titles:a.titles,prob:(a.prob===null?-1:a.prob)};});
+  list.sort(function(x,y){var v=(x[sortKey]>y[sortKey]?1:x[sortKey]<y[sortKey]?-1:0);if(sortKey==="name")v=x.name.localeCompare(y.name)*(sortDir);else v=v*sortDir;return v;});
+  var tb=document.getElementById("alltime-body");tb.innerHTML="";
+  list.forEach(function(x){
+    var a=x.a,tr=document.createElement("tr");
+    var diff=a.pf-a.pa;
+    tr.innerHTML="<td class='team'>"+x.name+(FR[x.k].unknown?"<span class='owner'>Team: "+FR[x.k].current+" · owner to confirm</span>":"<span class='owner'>Now: "+FR[x.k].current+"</span>")+"</td>"
+      +"<td class='num' data-l='Seasons'>"+a.seasons+"</td>"
+      +"<td class='num' data-l='Record'>"+a.w+"–"+a.l+(a.t?"–"+a.t:"–0")+"</td>"
+      +"<td class='num' data-l='Win %'>."+Math.round(a.pct*1000)+"</td>"
+      +"<td class='num' data-l='Pts For'>"+fmt(a.pf)+"</td>"
+      +"<td class='num' data-l='Pts Against'>"+fmt(a.pa)+"</td>"
+      +"<td class='num "+(diff>=0?"pos":"neg")+"' data-l='Diff'>"+(diff>=0?"+":"")+fmt(diff)+"</td>"
+      +"<td class='num' data-l='Playoff apps'>"+a.apps+"</td>"
+      +"<td class='num' data-l='Finals'>"+a.finals+"</td>"
+      +"<td class='num' data-l='Titles'>"+(a.titles?"<b>"+a.titles+"</b>":0)+"</td>"
+      +"<td class='num' data-l='Title prob.'>"+(a.prob===null?"—":a.prob.toFixed(1)+"%")+"</td>";
+    tb.appendChild(tr);
+  });
+}
+document.querySelectorAll("#alltime button.sortable").forEach(function(b){
+  b.addEventListener("click",function(){
+    var k=b.getAttribute("data-k");
+    if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==="name")?1:-1;}
+    renderAllTime();
+  });
+});
+
+/* leaderboards */
+function lb(el,items){
+  var ul=document.getElementById(el);ul.innerHTML="";
+  items.forEach(function(it){var li=document.createElement("li");li.innerHTML="<span>"+it[0]+"</span><span class='yr'>"+it[1]+"</span>";ul.appendChild(li);});
+}
+function renderLBs(){
+  var all=FRKEYS.map(function(k){return [FR[k].label,agg(k)];});
+  var byPF=all.slice().sort(function(a,b){return b[1].pf-a[1].pf;}).slice(0,5).map(function(x){return [x[0],fmt(x[1].pf)];});
+  var byPA=all.slice().sort(function(a,b){return a[1].pa-b[1].pa;}).slice(0,5).map(function(x){return [x[0],fmt(x[1].pa)];});
+  lb("lb-pf",byPF);lb("lb-pa",byPA);
+  var srows=[];
+  Object.keys(SEASONS).forEach(function(yr){if(SEASONS[yr].inProgress)return;SEASONS[yr].rows.forEach(function(r){srows.push({yr:yr,r:r});});});
+  var spf=srows.slice().sort(function(a,b){return b.r.pf-a.r.pf;}).slice(0,5).map(function(x){return [x.r.team+" ("+x.yr+")",fmt(x.r.pf)];});
+  var srec=srows.slice().sort(function(a,b){return pctOf(b.r.w,b.r.l,b.r.t)-pctOf(a.r.w,a.r.l,a.r.t)||b.r.pf-a.r.pf;}).slice(0,5).map(function(x){return [x.r.team+" ("+x.yr+")",x.r.w+"–"+x.r.l+(x.r.t?"–"+x.r.t:"")];});
+  lb("lb-season-pf",spf);lb("lb-season-rec",srec);
+}
+
+/* ============ HONOURS ============ */
+function honourCard(title,cls,rows){
+  var c=document.createElement("div");c.className="card";
+  var lis=rows.map(function(r){return "<li><span><span class='yr'>"+r[0]+"</span> &nbsp;"+r[1]+"</span></li>";}).join("");
+  c.innerHTML="<div class='trophy'>"+title+"</div><ul>"+lis+"</ul>";
+  return c;
+}
+function renderHonours(){
+  var g=document.getElementById("honours-grid");g.innerHTML="";
+  g.appendChild(honourCard("🏆 Drew McLean Trophy — League Champion","",HONOURS.titles));
+  g.appendChild(honourCard("The Payton — Regular Season Winner","",HONOURS.payton));
+  g.appendChild(honourCard("Division Champions — Playoff Semifinal Winners","",HONOURS.divchamp));
+  g.appendChild(honourCard("Division Winners — Regular Season","",HONOURS.divreg));
+  g.appendChild(honourCard("🚽 The Rudy — Toilet Bowl Champion (Last Place)","",HONOURS.rudy));
+  /* counts */
+  var counts={};
+  FRKEYS.forEach(function(k){counts[k]={t:0,dc:0,semi:0,p:0,dr:0,r:0};});
+  HONOURS.titles.forEach(function(r){counts[r[2]].t++;});
+  HONOURS.rudy.forEach(function(r){counts[r[2]].r++;});
+  HONOURS.payton.forEach(function(r){counts[r[2]].p++;});
+  FINALS.forEach(function(f){counts[f.winFr].dc++;counts[f.ruFr].dc++;});
+  FRKEYS.forEach(function(k){counts[k].semi=agg(k).top4;});
+  /* division regular titles by franchise */
+  var divWins={graeme:0,tye:1,dan:1,nathan:1,shane:1,simon:1,kaden:1,leslie:1,bianca:1,sean:0};
+  var tb=document.getElementById("honours-counts");tb.innerHTML="";
+  FRKEYS.map(function(k){return {k:k,c:counts[k]};})
+    .sort(function(a,b){return b.c.t-a.c.t||b.c.dc-a.c.dc||b.c.p-a.c.p;})
+    .forEach(function(x){
+      var tr=document.createElement("tr");
+      tr.innerHTML="<td class='team'>"+FR[x.k].label+"</td>"
+       +"<td class='num' data-l='Drew McLean'>"+x.c.t+"</td>"
+       +"<td class='num' data-l='Div. Champion'>"+x.c.dc+"</td>"
+       +"<td class='num' data-l='Semifinalist'>"+x.c.semi+"</td>"
+       +"<td class='num' data-l='The Payton'>"+x.c.p+"</td>"
+       +"<td class='num' data-l='Div. Title (reg.)'>"+(divWins[x.k]||0)+"</td>"
+       +"<td class='num' data-l='The Rudy'>"+x.c.r+"</td>";
+      tb.appendChild(tr);
+    });
+}
+
+/* ============ SEASONS ============ */
+function finishLabel(fin){
+  if(fin===null||fin===undefined)return "In progress — TBD";
+  if(fin===1)return "1 — Champion 🏆";
+  if(fin===2)return "2 — Runner-up";
+  if(fin===10)return "10 — Last (Rudy 🚽)";
+  return ""+fin;
+}
+function ordinal(n){return n===1?"1st":n===2?"2nd":n===3?"3rd":n+"th";}
+function renderSeasons(){
+  var wrap=document.getElementById("seasons-wrap");wrap.innerHTML="";
+  [2026,2025,2024,2023,2022].forEach(function(yr){
+    var season=SEASONS[yr];
+    var isLive=!!season.inProgress;
+    var f=FINALS.filter(function(x){return x.yr===yr;})[0];
+    var div=document.createElement("div");div.className="seasonblock";
+    var sorted=season.rows.slice().sort(function(a,b){
+      if(isLive){return (b.w-a.w)||(b.pf-a.pf);}
+      return a.fin-b.fin;
+    });
+    var rows=sorted.map(function(r){
+      var finCell=isLive?("— · "+ordinal(r.divRank)+" in div."):finishLabel(r.fin);
+      var seedCell=isLive?"TBD":(r.seed?("#"+r.seed):"—");
+      return "<tr><td class='num' data-l='Finish'>"+finCell+"</td>"
+       +"<td class='team'>"+r.team+"<span class='owner'>"+(FR[r.fr].unknown?"Owner to confirm":FR[r.fr].label)+" · "+divLabel(r.div)+(isLive?" · Div. standing: "+ordinal(r.divRank):"")+"</span></td>"
+       +"<td class='num' data-l='Record'>"+r.w+"–"+r.l+(r.t?"–"+r.t:"–0")+"</td>"
+       +"<td class='num' data-l='Win %'>."+Math.round(pctOf(r.w,r.l,r.t)*1000)+"</td>"
+       +"<td class='num' data-l='Pts For'>"+fmt(r.pf)+"</td>"
+       +"<td class='num' data-l='Pts Against'>"+fmt(r.pa)+"</td>"
+       +"<td class='num' data-l='Playoff seed'>"+seedCell+"</td></tr>";
+    }).join("");
+    var heading=isLive?(yr+" — In progress · Final through "+season.through+" · Updates weekly"): (yr+" — Champion: "+f.win+" · Runner-up: "+f.ru);
+    div.innerHTML="<h3>"+heading+"</h3>"
+      +"<div class='tablewrap'><table><thead><tr><th class='num'>"+(isLive?"Standing":"Finish")+"</th><th>Team</th><th class='num'>Record</th><th class='num'>Win %</th><th class='num'>PF</th><th class='num'>PA</th><th class='num'>Seed</th></tr></thead><tbody>"+rows+"</tbody></table></div>";
+    wrap.appendChild(div);
+  });
+}
+
+/* ============ FINALS ============ */
+function renderFinals(){
+  var ul=document.getElementById("finals-list");ul.innerHTML="";
+  FINALS.slice().reverse().forEach(function(f){
+    var li=document.createElement("li");
+    li.innerHTML="<span class='fy'>"+f.yr+"</span><span class='win'>"+f.win+" 🏆</span><span class='vs'>beat</span><span>"+f.ru+"</span><span class='muted'>· 3rd: "+f.third+" · 4th: "+f.fourth+" · Semifinalists: "+f.semi+" · Game score not migrated</span>";
+    ul.appendChild(li);
+  });
+  var tb=document.getElementById("seeds-body");tb.innerHTML="";
+  [2022,2023,2024,2025].forEach(function(yr){
+    var bySeed={};
+    SEASONS[yr].rows.forEach(function(r){if(r.seed)bySeed[r.seed]=r.team;});
+    var tr=document.createElement("tr");
+    var cells="";for(var s=1;s<=8;s++)cells+="<td data-l='Seed "+s+"'>"+bySeed[s]+"</td>";
+    tr.innerHTML="<td class='team'>"+yr+"</td>"+cells;
+    tb.appendChild(tr);
+  });
+}
+
+/* ============ TEAM TABS ============ */
+var currentTeam="graeme";
+function honourCountsFor(k){
+  var c={t:0,r:0,p:0,dr:0,dc:0,semi:agg(k).top4};
+  HONOURS.titles.forEach(function(x){if(x[2]===k)c.t++;});
+  HONOURS.rudy.forEach(function(x){if(x[2]===k)c.r++;});
+  HONOURS.payton.forEach(function(x){if(x[2]===k)c.p++;});
+  FINALS.forEach(function(f){if(f.winFr===k||f.ruFr===k)c.dc++;});
+  var divWins={tye:1,shane:1,bianca:1,simon:1,kaden:1,nathan:1,dan:1,leslie:1};
+  c.dr=divWins[k]||0;
+  return c;
+}
+function renderPicker(){
+  var p=document.getElementById("team-picker");p.innerHTML="";
+  FRKEYS.slice().sort(function(a,b){
+    var d=agg(b).titles-agg(a).titles;if(d)return d;
+    return agg(b).pct-agg(a).pct;
+  }).forEach(function(k){
+    var b=document.createElement("button");
+    b.textContent=FR[k].current;
+    b.setAttribute("role","tab");
+    b.setAttribute("aria-selected",k===currentTeam?"true":"false");
+    b.addEventListener("click",function(){currentTeam=k;renderPicker();renderTeam();});
+    p.appendChild(b);
+  });
+}
+function renderTeam(){
+  var k=currentTeam,a=agg(k),c=honourCountsFor(k),d=document.getElementById("team-detail");
+  var prob=a.prob;
+  var probHtml;
+  if(prob===null){
+    probHtml="<p class='muted' style='margin:6px 0 0'>No playoff appearances yet, so there's no conversion rate to show — the league base rate for any playoff team is 12.5%.</p>";
+  }else{
+    probHtml="<div class='probrow'><span class='lbl'>"+FR[k].label+" — titles ÷ playoff trips</span><div class='track'><div class='fill' style='width:"+Math.max(prob,2)+"%'></div></div><span class='val'>"+prob.toFixed(1)+"%</span></div>"
+      +"<div class='probrow'><span class='lbl'>League base rate (8-team bracket)</span><div class='track'><div class='fill base' style='width:12.5%'></div></div><span class='val'>12.5%</span></div>"
+      +"<p class='muted' style='margin:6px 0 0'>"+a.titles+" title"+(a.titles===1?"":"s")+" from "+a.apps+" playoff appearance"+(a.apps===1?"":"s")+".</p>";
+  }
+  var seasonRows=a.rows.slice().sort(function(x,y){return x.yr-y.yr;}).map(function(x){
+    var r=x.r;
+    var isLive=(x.yr===2026);
+    return "<tr><td class='num' data-l='Season'>"+x.yr+(isLive?" — in progress":"")+"</td><td class='team'>"+r.team+"<span class='owner'>"+divLabel(r.div)+(isLive?" · Div. standing: "+ordinal(r.divRank)+" · Through Week 10 · Updates weekly":"")+"</span></td>"
+     +"<td class='num' data-l='Record'>"+r.w+"–"+r.l+(r.t?"–"+r.t:"–0")+"</td>"
+     +"<td class='num' data-l='Win %'>."+Math.round(pctOf(r.w,r.l,r.t)*1000)+"</td>"
+     +"<td class='num' data-l='PF'>"+fmt(r.pf)+"</td><td class='num' data-l='PA'>"+fmt(r.pa)+"</td>"
+     +"<td class='num' data-l='Seed'>"+(r.seed?("#"+r.seed):"—")+"</td>"
+     +"<td class='num' data-l='Finish'>"+finishLabel(r.fin)+"</td></tr>";
+  }).join("");
+  /* title-game head-to-head: finals this franchise played */
+  var finalsRows=FINALS.filter(function(f){return f.winFr===k||f.ruFr===k;});
+  var h2h="";
+  if(finalsRows.length){
+    h2h="<h3>Title-game head-to-head</h3><ul class='finals'>"+finalsRows.map(function(f){
+      var won=f.winFr===k;
+      return "<li><span class='fy'>"+f.yr+"</span><span>"+(won?"<b>Beat</b> "+f.ru+" 🏆":"<b>Lost to</b> "+f.win)+"</span><span class='muted'>in the Drew McLean Trophy game (score not migrated)</span></li>";
+    }).join("")+"</ul>"
+     +"<p class='sub'>Game-by-game head-to-head against every other team — regular season and playoffs — needs the weekly scoreboards, which ESPN didn't migrate and NFL.com no longer serves without the original league ID. Title games are the playoff meetings the surviving data does confirm.</p>";
+  }else{
+    h2h="<h3>Head-to-head</h3><p class='sub'>Game-by-game head-to-head — regular season and playoffs — needs the weekly scoreboards, which ESPN didn't migrate and NFL.com no longer serves without the original league ID. This franchise never reached a title game, so there are no confirmed playoff meetings to list.</p>";
+  }
+  var diff=a.pf-a.pa;
+  d.innerHTML="<div class='teamhead'><div><h2>"+FR[k].label+"</h2><p class='sub' style='margin:0'>Current team name: <b>"+FR[k].current+"</b>"+(FR[k].unknown?" · <b>Owner to confirm</b> — ESPN's migrated data doesn't link this team to a named member":"")+"</p></div></div>"
+   +"<div class='honourcounts'>"
+   +"<div class='hc'><b>"+a.w+"–"+a.l+(a.t?"–"+a.t:"–0")+"</b><span>All-time regular season · ."+Math.round(a.pct*1000)+" win %</span></div>"
+   +"<div class='hc'><b>"+fmt(a.pf)+"</b><span>Points for (reg. season)</span></div>"
+   +"<div class='hc'><b>"+fmt(a.pa)+"</b><span>Points against (reg. season)</span></div>"
+   +"<div class='hc'><b>"+(diff>=0?"+":"")+fmt(diff)+"</b><span>Point differential</span></div>"
+   +"<div class='hc'><b>"+a.apps+"</b><span>Playoff appearances</span></div>"
+   +"<div class='hc'><b>"+a.best+"</b><span>Best finish</span></div>"
+   +"</div>"
+   +"<div class='honourcounts'>"
+   +"<div class='hc'><b>"+c.t+"×</b><span>🏆 Drew McLean Trophy</span></div>"
+   +"<div class='hc'><b>"+c.dc+"×</b><span>Division Champion (finalist)</span></div>"
+   +"<div class='hc'><b>"+c.semi+"×</b><span>Semifinalist</span></div>"
+   +"<div class='hc'><b>"+c.p+"×</b><span>The Payton</span></div>"
+   +"<div class='hc'><b>"+c.dr+"×</b><span>Division Title (reg. season)</span></div>"
+   +"<div class='hc'><b>"+c.r+"×</b><span>🚽 The Rudy</span></div>"
+   +"</div>"
+   +"<div class='probbox'><h3 style='margin-top:0'>Championship probability if they make the playoffs</h3>"+probHtml+"</div>"
+   +"<div class='note'><b>Ownership / name history:</b> "+FR[k].note+" Playoff points for/against totals aren't shown: playoff game scores weren't migrated, only regular-season PF/PA survived.</div>"
+   +"<h3>Season by season</h3><div class='tablewrap'><table><thead><tr><th class='num'>Season</th><th>Team name</th><th class='num'>Record</th><th class='num'>Win %</th><th class='num'>PF</th><th class='num'>PA</th><th class='num'>Seed</th><th class='num'>Finish</th></tr></thead><tbody>"+seasonRows+"</tbody></table></div>"
+   +h2h;
+}
+
+/* ============ TABS ============ */
+document.querySelectorAll(".tabbar button").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".tabbar button").forEach(function(x){x.setAttribute("aria-selected","false");});
+    b.setAttribute("aria-selected","true");
+    document.querySelectorAll("section.view").forEach(function(s){s.classList.remove("active");});
+    document.getElementById("view-"+b.getAttribute("data-view")).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+renderAllTime();renderLBs();renderHonours();renderSeasons();renderFinals();renderPicker();renderTeam();
+</script>
+</body>
+</html>
